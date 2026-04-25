@@ -2,4 +2,11 @@
 
 @theme {
   --font-poppins: var(--font-poppins);
+  --text-20: 1.25rem;
+  --text-18: 1.125rem;
+  --color-dark-2: #403f3f;
+  --color-dark-3: #706f6f;
+  --color-dark-4: #9f9f9f;
+  --color-dark-6: #e7e7e7;
+  --color-dark-7: #f3f3f3;
 }
