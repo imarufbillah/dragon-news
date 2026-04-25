@@ -4,16 +4,35 @@ import { format } from "date-fns";
 
 const Header = () => {
   return (
-    <section className="container mx-auto flex flex-col gap-2.5 items-center pt-12.5 mb-7.5">
-      <Image src={Logo} alt="Logo" loading="eager" />
-      <p className="text-[1.125rem] text-[#706F6F]">
-        Journalism Without Fear or Favour
-      </p>
-      <p className="text-[1.25rem] text-[#706F6F] font-medium">
-        <span className="text-[#403F3F]">{format(new Date(), "EEEE,")}</span>{" "}
-        {format(new Date(), "MMMM dd, yyyy")}
-      </p>
-    </section>
+    <header className="bg-white border-b border-dark-6">
+      <div className="container mx-auto flex flex-col items-center py-12 px-4">
+        {/* Logo */}
+        <div className="mb-6">
+          <Image 
+            src={Logo} 
+            alt="Dragon News Logo" 
+            loading="eager"
+            className="h-auto max-w-full"
+            priority
+          />
+        </div>
+        
+        {/* Tagline */}
+        <p className="text-lg text-dark-3 font-medium mb-4 tracking-wide">
+          Journalism Without Fear or Favour
+        </p>
+        
+        {/* Date */}
+        <time className="text-xl text-dark-2 font-semibold">
+          <span className="text-dark-1">
+            {format(new Date(), "EEEE,")}
+          </span>{" "}
+          <span className="text-dark-3 font-medium">
+            {format(new Date(), "MMMM dd, yyyy")}
+          </span>
+        </time>
+      </div>
+    </header>
   );
 };
 
