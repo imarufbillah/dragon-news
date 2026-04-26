@@ -27,24 +27,24 @@ const Navbar = () => {
           {/* Desktop Navigation Links */}
           <ul className="hidden md:flex items-center space-x-8">
             <li>
-              <Link 
-                href="/" 
+              <Link
+                href="/category/08"
                 className="text-base font-medium text-dark-2 hover:text-primary transition-colors py-2 border-b-2 border-transparent hover:border-primary"
               >
                 Home
               </Link>
             </li>
             <li>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="text-base font-medium text-dark-3 hover:text-primary transition-colors py-2 border-b-2 border-transparent hover:border-primary"
               >
                 About
               </Link>
             </li>
             <li>
-              <Link 
-                href="/career" 
+              <Link
+                href="/career"
                 className="text-base font-medium text-dark-3 hover:text-primary transition-colors py-2 border-b-2 border-transparent hover:border-primary"
               >
                 Career
@@ -71,8 +71,8 @@ const Navbar = () => {
           <div className="md:hidden border-t border-dark-6 py-4">
             <ul className="space-y-2">
               <li>
-                <Link 
-                  href="/" 
+                <Link
+                  href="/"
                   className="block px-4 py-3 text-base font-medium text-dark-2 hover:text-primary hover:bg-dark-8 rounded-md transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -80,8 +80,8 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/about" 
+                <Link
+                  href="/about"
                   className="block px-4 py-3 text-base font-medium text-dark-3 hover:text-primary hover:bg-dark-8 rounded-md transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -89,8 +89,8 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/career" 
+                <Link
+                  href="/career"
                   className="block px-4 py-3 text-base font-medium text-dark-3 hover:text-primary hover:bg-dark-8 rounded-md transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
