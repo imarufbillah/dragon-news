@@ -10,10 +10,9 @@ const News = async ({ slug }) => {
 
   const news = slug === "08" ? allNews : categorizedNews;
 
-  console.log(categorizedNews);
   if (!categorizedNews.length) return <EmptyNews />;
 
-  return news.map((n) => <Article key={n.id} n={n} />);
+  return news.map((n, index) => <Article key={index} n={n} />);
 };
 
 export default News;

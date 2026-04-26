@@ -1,10 +1,19 @@
 const getCategories = async () => {
   const data = await fetch(
     "https://openapi.programming-hero.com/api/news/categories",
+    { next: { revalidate: 3600 } },
   );
   const categoriesData = await data.json();
   const categories = categoriesData.data.news_category;
-  return categories;
+
+  // Sort categories to put "All News" (category_id: "08") at the top
+  const sortedCategories = categories.sort((a, b) => {
+    if (a.category_id === "08") return -1; // "All News" goes first
+    if (b.category_id === "08") return 1; // "All News" goes first
+    return 0; // Keep original order for other categories
+  });
+
+  return sortedCategories;
 };
 
 const getNewsByCategoryId = async (category_id) => {

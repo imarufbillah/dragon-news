@@ -13,13 +13,16 @@ const SocialSection = () => {
             href="#"
             className="flex items-center space-x-4 px-4 py-3 rounded-lg hover:bg-dark-8 transition-all-smooth group"
           >
-            <Image
-              src={fbIcon}
-              alt="Facebook"
-              width={24}
-              height={24}
-              className="shrink-0"
-            />
+            <div className="w-4">
+              <Image
+                src={fbIcon}
+                alt="Facebook"
+                width="auto"
+                height="auto"
+                className="shrink-0"
+              />
+            </div>
+
             <span className="font-medium text-dark-2 group-hover:text-primary">
               Facebook
             </span>
@@ -29,13 +32,16 @@ const SocialSection = () => {
             href="#"
             className="flex items-center space-x-4 px-4 py-3 rounded-lg hover:bg-dark-8 transition-all-smooth group"
           >
-            <Image
-              src={twitterIcon}
-              alt="Twitter"
-              width={24}
-              height={24}
-              className="shrink-0"
-            />
+            <div className="w-4">
+              <Image
+                src={twitterIcon}
+                alt="Twitter"
+                width="auto"
+                height="auto"
+                className="shrink-0"
+              />
+            </div>
+
             <span className="font-medium text-dark-2 group-hover:text-primary">
               Twitter
             </span>
@@ -45,13 +51,16 @@ const SocialSection = () => {
             href="#"
             className="flex items-center space-x-4 px-4 py-3 rounded-lg hover:bg-dark-8 transition-all-smooth group"
           >
-            <Image
-              src={instagramIcon}
-              alt="Instagram"
-              width={24}
-              height={24}
-              className="shrink-0"
-            />
+            <div className="w-4">
+              <Image
+                src={instagramIcon}
+                alt="Instagram"
+                width="auto"
+                height="auto"
+                className="shrink-0"
+              />
+            </div>
+
             <span className="font-medium text-dark-2 group-hover:text-primary">
               Instagram
             </span>
