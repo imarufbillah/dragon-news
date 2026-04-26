@@ -5,8 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { authClient } from "@/app/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -46,13 +50,22 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Here you'll add authentication logic later
-      console.log("Login Form Data:", formData);
-      alert("Login form submitted! Check console for data.");
+      const { data, error } = await authClient.signIn.email({
+        ...formData,
+      });
+
+      if (error) {
+        setErrors({ email: error.message || "Login failed" });
+      }
+
+      if (data) {
+        alert("Login successful! Redirecting...");
+        router.push("/category/08");
+      }
     }
   };
 
@@ -73,7 +86,8 @@ export default function LoginPage() {
               alt="Dragon News"
               width={300}
               height={80}
-              className="mx-auto"
+              className="mx-auto w-auto h-auto"
+              loading="eager"
             />
           </Link>
           <h1 className="text-3xl font-bold text-dark-1 mb-2">Welcome Back</h1>

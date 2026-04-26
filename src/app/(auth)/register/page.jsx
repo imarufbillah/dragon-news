@@ -10,15 +10,19 @@ import {
   EyeOff,
   AlertCircle,
   User,
-  Phone,
+  Image as ImageIcon,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { authClient } from "@/app/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    photoURL: "",
     password: "",
     confirmPassword: "",
     agreeToTerms: false,
@@ -54,10 +58,12 @@ export default function RegisterPage() {
       newErrors.email = "Email is invalid";
     }
 
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^\+?[\d\s-()]+$/.test(formData.phone)) {
-      newErrors.phone = "Phone number is invalid";
+    if (!formData.photoURL) {
+      newErrors.photoURL = "Photo URL is required";
+    } else if (
+      !/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(formData.photoURL)
+    ) {
+      newErrors.photoURL = "Please enter a valid image URL";
     }
 
     if (!formData.password) {
@@ -80,14 +86,25 @@ export default function RegisterPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Here you'll add authentication logic later
-      const { confirmPassword, agreeToTerms, ...submitData } = formData;
-      console.log("Register Form Data:", submitData);
-      alert("Registration form submitted! Check console for data.");
+      const { data, error } = await authClient.signUp.email({
+        ...formData,
+      });
+      if (error) {
+        setErrors({
+          email: error.message || "Registration failed. Please try again.",
+        });
+      }
+
+      if (data) {
+        alert(
+          "Registration successful! Please check your email to verify your account.",
+        );
+        router.push("/login");
+      }
     }
   };
 
@@ -108,7 +125,8 @@ export default function RegisterPage() {
               alt="Dragon News"
               width={300}
               height={80}
-              className="mx-auto"
+              className="mx-auto w-auto h-auto"
+              loading="eager"
             />
           </Link>
           <h1 className="text-3xl font-bold text-dark-1 mb-2">
@@ -188,36 +206,36 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Phone Field */}
+            {/* Photo URL Field */}
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="photoURL"
                 className="block text-sm font-semibold text-dark-2 mb-2"
               >
-                Phone Number
+                Photo URL
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Phone size={20} className="text-dark-4" />
+                  <ImageIcon size={20} className="text-dark-4" />
                 </div>
                 <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
+                  type="url"
+                  id="photoURL"
+                  name="photoURL"
+                  value={formData.photoURL}
                   onChange={handleChange}
                   className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                    errors.phone
+                    errors.photoURL
                       ? "border-error focus:ring-error/20"
                       : "border-dark-5 focus:ring-primary/20 focus:border-primary"
                   }`}
-                  placeholder="Enter your phone number"
+                  placeholder="https://example.com/photo.jpg"
                 />
               </div>
-              {errors.phone && (
+              {errors.photoURL && (
                 <div className="flex items-center gap-2 mt-2 text-error text-sm">
                   <AlertCircle size={16} />
-                  <span>{errors.phone}</span>
+                  <span>{errors.photoURL}</span>
                 </div>
               )}
             </div>
