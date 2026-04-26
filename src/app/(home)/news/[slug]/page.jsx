@@ -4,9 +4,9 @@ import SocialSection from "@/components/home/SocialSection";
 import ArticleDetails from "@/components/home/ArticleDetails";
 import { getNewsDetailsById } from "@/services/news";
 
-const page = async ({ params }) => {
+const ArticleDetailsPage = async ({ params }) => {
   const { slug: articleId } = await params;
-  
+
   let article = null;
   let error = null;
 
@@ -56,4 +56,4 @@ const page = async ({ params }) => {
   );
 };
 
-export default page;
+export default ArticleDetailsPage;
