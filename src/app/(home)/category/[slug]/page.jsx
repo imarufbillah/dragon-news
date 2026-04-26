@@ -6,6 +6,10 @@ import QZoneSection from "@/components/home/QZoneSection";
 import SocialSection from "@/components/home/SocialSection";
 import Image from "next/image";
 import bg from "@/assets/bg.png";
+import { Suspense } from "react";
+import CategoriesSkeleton from "@/components/skeletons/CategoriesSkeleton";
+import NewsSkeleton from "@/components/skeletons/NewsSkeleton";
+import FeaturedStoriesSkeleton from "@/components/skeletons/FeaturedStoriesSkeleton";
 
 const NewsContainer = async ({ params }) => {
   const { slug } = await params;
@@ -22,12 +26,16 @@ const NewsContainer = async ({ params }) => {
                 <h2 className="text-xl font-bold text-dark-1 mb-6">
                   All Categories
                 </h2>
-                <Categories slug={slug} />
+                <Suspense fallback={<CategoriesSkeleton />}>
+                  <Categories slug={slug} />
+                </Suspense>
               </div>
             </div>
 
             {/* Featured Articles */}
-            <FeaturedStories />
+            <Suspense fallback={<FeaturedStoriesSkeleton />}>
+              <FeaturedStories />
+            </Suspense>
           </aside>
 
           {/* Main Content - News Feed */}
@@ -43,7 +51,9 @@ const NewsContainer = async ({ params }) => {
             </div>
 
             {/* News */}
-            <News slug={slug} />
+            <Suspense fallback={<NewsSkeleton count={5} />}>
+              <News slug={slug} />
+            </Suspense>
           </section>
 
           {/* Right Sidebar - Login & Widgets */}
