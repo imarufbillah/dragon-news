@@ -39,7 +39,7 @@ export async function fetchNewsByCategory(categoryId) {
   }
 
   const data = await response.json();
-  return data.data;
+  return Array.isArray(data.data) ? data.data : [];
 }
 
 /**
@@ -61,17 +61,21 @@ export async function fetchNewsById(newsId) {
 }
 
 /**
- * Fetch all news (from local JSON)
- * @returns {Promise<Array>} Array of all news articles
+ * Fetch all news (from API category 08)
+ * @returns {Promise<Object>} Response object with data property containing array of news articles
  */
 export async function fetchAllNews() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/news.json`, {
-    next: { revalidate: 300 }, // Revalidate every 5 minutes
-  });
+  const response = await fetch(
+    "https://openapi.programming-hero.com/api/news/category/08",
+    {
+      next: { revalidate: 300 }, // Revalidate every 5 minutes
+    },
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch all news");
   }
 
-  return response.json();
+  const data = await response.json();
+  return data; // Returns { data: [...], status: true }
 }

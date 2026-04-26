@@ -6,7 +6,8 @@ import { fetchAllNews } from "@/services/api/news.service";
  * Displays a scrolling marquee of latest news headlines
  */
 const LatestNewsMarquee = async () => {
-  const news = await fetchAllNews();
+  const data = await fetchAllNews();
+  const news = data?.data || [];
 
   return (
     <section className="bg-dark-7 border-y border-dark-6 overflow-hidden">
@@ -30,15 +31,19 @@ const LatestNewsMarquee = async () => {
             style={{ height: "100%" }}
             className="flex items-center"
           >
-            {news.map((article) => (
-              <span
-                className="inline-flex items-center text-base text-dark-2 font-medium mr-12 hover:text-primary transition-colors cursor-pointer whitespace-nowrap"
-                key={article._id}
-              >
-                <span className="w-1.5 h-1.5 bg-primary rounded-full mr-3 shrink-0"></span>
-                {article.title}
-              </span>
-            ))}
+            {news.length > 0 ? (
+              news.map((article) => (
+                <span
+                  className="inline-flex items-center text-base text-dark-2 font-medium mr-12 hover:text-primary transition-colors cursor-pointer whitespace-nowrap"
+                  key={article._id}
+                >
+                  <span className="w-1.5 h-1.5 bg-primary rounded-full mr-3 shrink-0"></span>
+                  {article.title}
+                </span>
+              ))
+            ) : (
+              <span className="text-dark-4 text-base">No latest news available</span>
+            )}
           </Marquee>
         </div>
       </div>

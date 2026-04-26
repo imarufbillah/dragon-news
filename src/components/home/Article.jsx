@@ -1,15 +1,10 @@
-import {
-  Bookmark,
-  Eye,
-  Share2,
-  Clock,
-  Tag,
-} from "lucide-react";
+import { Bookmark, Eye, Share2, Clock, Tag } from "lucide-react";
 import Image from "next/image";
 import { format } from "date-fns";
 import StarRating from "@/components/ui/StarRating";
 import CategoryBadge from "@/components/ui/CategoryBadge";
 import { calculateReadingTime } from "@/services/news";
+import Link from "next/link";
 
 /**
  * Article Component
@@ -17,6 +12,7 @@ import { calculateReadingTime } from "@/services/news";
  */
 const Article = ({ article }) => {
   const readingTime = calculateReadingTime(article?.details);
+  console.log(article);
 
   return (
     <article className="card">
@@ -31,10 +27,15 @@ const Article = ({ article }) => {
             className="rounded-full object-cover ring-2 ring-dark-6"
           />
           <div>
-            <h3 className="font-semibold text-dark-1">{article?.author?.name}</h3>
+            <h3 className="font-semibold text-dark-1">
+              {article?.author?.name}
+            </h3>
             <time className="text-xs text-dark-4">
               {article?.author?.published_date
-                ? format(new Date(article.author.published_date), "MMMM dd, yyyy")
+                ? format(
+                    new Date(article.author.published_date),
+                    "MMMM dd, yyyy",
+                  )
                 : "Date not available"}
             </time>
           </div>
@@ -83,7 +84,11 @@ const Article = ({ article }) => {
         {/* Featured Image */}
         <div className="mb-6 overflow-hidden rounded-xl">
           <Image
-            src={article?.image_url || article?.thumbnail_url || "/api/placeholder/800/400"}
+            src={
+              article?.image_url ||
+              article?.thumbnail_url ||
+              "/api/placeholder/800/400"
+            }
             alt={article?.title || "News featured image"}
             width={800}
             height={400}
@@ -116,7 +121,10 @@ const Article = ({ article }) => {
         )}
 
         {/* Read More Button */}
-        <button className="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-hover transition-all-smooth focus-ring group">
+        <Link
+          href={`/news/${article._id || article.id}`}
+          className="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-hover transition-all-smooth focus-ring group"
+        >
           Read Full Article
           <svg
             className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"
@@ -131,7 +139,7 @@ const Article = ({ article }) => {
               d="M9 5l7 7-7 7"
             />
           </svg>
-        </button>
+        </Link>
 
         {/* Article Footer */}
         <footer className="flex items-center justify-between pt-6 mt-6 border-t border-dark-6">

@@ -1,8 +1,8 @@
 import LatestNewsMarquee from "@/components/home/LatestNewsMarquee";
 import Header from "@/components/shared/Header";
 import Navbar from "@/components/shared/Navbar";
+import { LatestNewsMarqueeSkeleton } from "@/components/skeletons";
 import { Suspense } from "react";
-import LatestNewsMarqueeSkeleton from "@/components/skeletons/LatestNewsMarqueeSkeleton";
 
 const layout = ({ children }) => {
   return (

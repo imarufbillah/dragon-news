@@ -9,10 +9,7 @@ import {
   fetchNewsById,
   fetchAllNews,
 } from "../api/news.service";
-import {
-  sortCategoriesWithAllNewsFirst,
-  getNewsForCategory,
-} from "./news.utils";
+import { sortCategoriesWithAllNewsFirst } from "./news.utils";
 
 /**
  * Get all categories sorted with "All News" first
@@ -31,7 +28,8 @@ export async function getCategories() {
  */
 export async function getNewsByCategoryId(categoryId) {
   if (categoryId === "08") {
-    return await fetchAllNews();
+    const response = await fetchAllNews();
+    return response?.data || [];
   }
   return await fetchNewsByCategory(categoryId);
 }

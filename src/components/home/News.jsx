@@ -7,7 +7,16 @@ import EmptyNews from "./EmptyNews";
  * Displays a list of news articles for a specific category
  */
 const News = async ({ slug }) => {
-  const news = await getNewsByCategoryId(slug);
+  let news = [];
+
+  try {
+    const result = await getNewsByCategoryId(slug);
+    // Ensure news is always an array
+    news = Array.isArray(result) ? result : [];
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    news = [];
+  }
 
   if (!news || news.length === 0) {
     return <EmptyNews />;
