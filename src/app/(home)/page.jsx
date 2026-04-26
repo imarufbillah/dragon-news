@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation";
+import { DEFAULT_CATEGORY_ID } from "@/constants/categories";
 
-const default_category_id = "08";
-
+/**
+ * Home Page
+ * Redirects to the default category (All News)
+ */
 export default async function Home() {
-  redirect(`/category/${default_category_id}`);
+  redirect(`/category/${DEFAULT_CATEGORY_ID}`);
 }

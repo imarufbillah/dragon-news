@@ -1,18 +1,25 @@
-import { getNewsByCategoryId } from "@/lib/data";
+import { getNewsByCategoryId } from "@/services/news";
 import Article from "./Article";
 import EmptyNews from "./EmptyNews";
 
+/**
+ * News Component
+ * Displays a list of news articles for a specific category
+ */
 const News = async ({ slug }) => {
-  const data = await fetch("http://localhost:3000/news.json");
-  const allNews = await data.json();
+  const news = await getNewsByCategoryId(slug);
 
-  const categorizedNews = await getNewsByCategoryId(slug);
+  if (!news || news.length === 0) {
+    return <EmptyNews />;
+  }
 
-  const news = slug === "08" ? allNews : categorizedNews;
-
-  if (!categorizedNews.length) return <EmptyNews />;
-
-  return news.map((n, index) => <Article key={index} n={n} />);
+  return (
+    <div className="space-y-8">
+      {news.map((article, index) => (
+        <Article key={article._id || index} article={article} />
+      ))}
+    </div>
+  );
 };
 
 export default News;

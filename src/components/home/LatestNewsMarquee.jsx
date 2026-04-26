@@ -1,8 +1,12 @@
 import Marquee from "react-fast-marquee";
+import { fetchAllNews } from "@/services/api/news.service";
 
+/**
+ * LatestNewsMarquee Component
+ * Displays a scrolling marquee of latest news headlines
+ */
 const LatestNewsMarquee = async () => {
-  const data = await fetch("http://localhost:3000/news.json");
-  const news = await data.json();
+  const news = await fetchAllNews();
 
   return (
     <section className="bg-dark-7 border-y border-dark-6 overflow-hidden">
@@ -26,13 +30,13 @@ const LatestNewsMarquee = async () => {
             style={{ height: "100%" }}
             className="flex items-center"
           >
-            {news.map((n) => (
+            {news.map((article) => (
               <span
                 className="inline-flex items-center text-base text-dark-2 font-medium mr-12 hover:text-primary transition-colors cursor-pointer whitespace-nowrap"
-                key={n.id}
+                key={article._id}
               >
                 <span className="w-1.5 h-1.5 bg-primary rounded-full mr-3 shrink-0"></span>
-                {n.title}
+                {article.title}
               </span>
             ))}
           </Marquee>
