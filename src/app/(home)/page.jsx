@@ -1,9 +1,7 @@
-import NewsContainer from "@/components/home/NewsContainer";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <>
-      <NewsContainer />
-    </>
-  );
+const default_category_id = "08";
+
+export default async function Home() {
+  redirect(`/category/${default_category_id}`);
 }

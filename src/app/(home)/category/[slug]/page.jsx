@@ -1,13 +1,15 @@
+import Categories from "@/components/home/Categories";
+import FeaturedStories from "@/components/home/FeaturedStories";
+import LoginSection from "@/components/home/LoginSection";
+import News from "@/components/home/News";
+import QZoneSection from "@/components/home/QZoneSection";
+import SocialSection from "@/components/home/SocialSection";
 import Image from "next/image";
 import bg from "@/assets/bg.png";
-import Categories from "./Categories";
-import FeaturedStories from "./FeaturedStories";
-import Article from "./Article";
-import LoginSection from "./LoginSection";
-import SocialSection from "./SocialSection";
-import QZoneSection from "./QZoneSection";
 
-const NewsContainer = () => {
+const NewsContainer = async ({ params }) => {
+  const { slug } = await params;
+
   return (
     <main className="bg-dark-8 min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -20,7 +22,7 @@ const NewsContainer = () => {
                 <h2 className="text-xl font-bold text-dark-1 mb-6">
                   All Categories
                 </h2>
-                <Categories />
+                <Categories slug={slug} />
               </div>
             </div>
 
@@ -40,8 +42,8 @@ const NewsContainer = () => {
               </div>
             </div>
 
-            {/* Article / News */}
-            <Article />
+            {/* News */}
+            <News slug={slug} />
           </section>
 
           {/* Right Sidebar - Login & Widgets */}
