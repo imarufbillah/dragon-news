@@ -12,7 +12,6 @@ import Link from "next/link";
  */
 const Article = ({ article }) => {
   const readingTime = calculateReadingTime(article?.details);
-  console.log(article);
 
   return (
     <article className="card">
@@ -20,7 +19,7 @@ const Article = ({ article }) => {
       <div className="flex items-center justify-between p-6 bg-dark-8 border-b border-dark-6">
         <div className="flex items-center space-x-4">
           <Image
-            src={article?.author?.img || "/api/placeholder/48/48"}
+            src={article?.author?.img}
             alt={article?.author?.name || "Author"}
             width={48}
             height={48}
