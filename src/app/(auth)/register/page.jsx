@@ -22,7 +22,7 @@ export default function RegisterPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    photoURL: "",
+    image: "",
     password: "",
     confirmPassword: "",
     agreeToTerms: false,
@@ -58,12 +58,12 @@ export default function RegisterPage() {
       newErrors.email = "Email is invalid";
     }
 
-    if (!formData.photoURL) {
-      newErrors.photoURL = "Photo URL is required";
+    if (!formData.image) {
+      newErrors.image = "Image is required";
     } else if (
-      !/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(formData.photoURL)
+      !/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(formData.image)
     ) {
-      newErrors.photoURL = "Please enter a valid image URL";
+      newErrors.image = "Please enter a valid image URL";
     }
 
     if (!formData.password) {
@@ -206,13 +206,13 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Photo URL Field */}
+            {/* Image Field */}
             <div>
               <label
-                htmlFor="photoURL"
+                htmlFor="image"
                 className="block text-sm font-semibold text-dark-2 mb-2"
               >
-                Photo URL
+                Image URL
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -220,22 +220,22 @@ export default function RegisterPage() {
                 </div>
                 <input
                   type="url"
-                  id="photoURL"
-                  name="photoURL"
-                  value={formData.photoURL}
+                  id="image"
+                  name="image"
+                  value={formData.image}
                   onChange={handleChange}
                   className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                    errors.photoURL
+                    errors.image
                       ? "border-error focus:ring-error/20"
                       : "border-dark-5 focus:ring-primary/20 focus:border-primary"
                   }`}
                   placeholder="https://example.com/photo.jpg"
                 />
               </div>
-              {errors.photoURL && (
+              {errors.image && (
                 <div className="flex items-center gap-2 mt-2 text-error text-sm">
                   <AlertCircle size={16} />
-                  <span>{errors.photoURL}</span>
+                  <span>{errors.image}</span>
                 </div>
               )}
             </div>

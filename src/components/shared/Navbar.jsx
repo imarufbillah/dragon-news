@@ -1,11 +1,16 @@
 "use client";
 
+import { authClient, useSession } from "@/app/lib/auth-client";
 import { UserRound, Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { data: session } = useSession();
+  console.log(session);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -54,14 +59,31 @@ const Navbar = () => {
 
           {/* User Actions */}
           <div className="flex items-center space-x-3">
-            <button className="p-2 rounded-full border-2 border-dark-5 text-dark-3 hover:border-primary hover:text-primary transition-colors focus-ring">
-              <UserRound size={20} />
+            <button
+              className={`${session ? "p-0.5" : "p-2"} rounded-full border-2 border-dark-5 text-dark-3 hover:border-primary hover:text-primary transition-colors focus-ring`}
+            >
+              {session ? (
+                <Image
+                  src={session.user.image}
+                  width={500}
+                  height={500}
+                  alt="User Avatar"
+                  className="w-6 h-6 rounded-full object-cover"
+                />
+              ) : (
+                <UserRound size={20} />
+              )}
             </button>
             <Link
+              {...(session
+                ? {
+                    onClick: async () => await authClient.signOut(),
+                  }
+                : { href: "/login" })}
               href="/login"
               className="btn-primary px-6 py-2.5 rounded-md text-sm font-semibold"
             >
-              Login
+              {session ? "Logout" : "Login"}
             </Link>
           </div>
         </div>
